@@ -1,0 +1,9 @@
+###### Compile Artifacts #####
+*.o
+
+######     Binaries      #####
+test
+
+#####   Eclipse Project  #####
+.cproject
+.project
