@@ -43,6 +43,7 @@ Map* createMap(int size)
 					// We shouldn't return a pointer to freed memory
 					return NULL;
 				}
+				// TODO loop through this row in the board and set the state to NONE
 			}
 			//TODO the map is finished, we need to store the size in the map struct.
 		}
@@ -57,4 +58,44 @@ Map* createMap(int size)
 	}
 
 	return retVal;
+}
+
+void deleteMap(Map* map)
+{
+	// Variables
+	int i, size;
+
+	//TODO fetch size from the map struct
+
+	// Loop through the board and delete the rows.
+	for(i = 0; i < size; ++i)
+	{
+		free(map->board[i]);
+	}
+
+	// Free the board pointer
+	free(map->board);
+
+	// Finally, free the map
+	free(map);
+}
+
+const char* stateToString(TileState state)
+{
+	return "";
+}
+
+void printMap(Map* map)
+{
+	return;
+}
+
+int setMapState(int xVal, int yVal, TileState state)
+{
+	return 0;
+}
+
+TileState determineMapWinner(Map* map)
+{
+	return NONE;
 }

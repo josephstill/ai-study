@@ -38,4 +38,43 @@ typedef struct Map
  */
 Map* createMap(int size);
 
+/**
+ * Deletes the map that was passed in.
+ *
+ * @param map: The map to delete
+ */
+void deleteMap(Map* map);
 
+/**
+ * Prints a string representation of the tile state.
+ *
+ * @param state: The tile state
+ * @return: A string representation of the tile state
+ */
+const char* stateToString(TileState state);
+
+/**
+ * Prints the map to a console.
+ *
+ * @param map: The map to print.
+ */
+void printMap(Map* map);
+
+/**
+ * Sets the state of the specified game space to the provided state.
+ * If (x, y) is invalid coordinates, then the finction will return 0.
+ *
+ * @param xVal: The x coordinate to set.
+ * @param yVal: The y coordinate to set.
+ * @param state: The state to set.
+ * @return: 1 for success, 0 for fail
+ */
+int setMapState(int xVal, int yVal, TileState state);
+
+/**
+ * Tests the map for a winner. If there is no winner, NONE is returned.
+ *
+ * @param map: The map to test for a winner.
+ * @return: The winner or NONE
+ */
+TileState determineMapWinner(Map* map);
