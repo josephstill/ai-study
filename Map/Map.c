@@ -21,7 +21,7 @@ Map* createMap(int size)
 		// Check if the initial list was created successfully
 		if (retVal->board)
 		{
-			for(i = 0; i < size; ++i)
+			for (i = 0; i < size; ++i)
 			{
 				// Now we'll loop over the outer list and create inner lists to store the
 				// actual game state.
@@ -43,9 +43,16 @@ Map* createMap(int size)
 					// We shouldn't return a pointer to freed memory
 					return NULL;
 				}
-				// TODO loop through this row in the board and set the state to NONE
+
+				// Loop back over the new row and set all the new entries to NONE
+				for (j = 0; j < size; ++j)
+				{
+					retVal->board[i][j] = NONE;
+				}
 			}
-			//TODO the map is finished, we need to store the size in the map struct.
+
+			// Store the size into the struct for dimension tracking.
+			retVal->size = size;
 		}
 		else
 		{
@@ -63,12 +70,10 @@ Map* createMap(int size)
 void deleteMap(Map* map)
 {
 	// Variables
-	int i, size;
-
-	//TODO fetch size from the map struct
+	int i;
 
 	// Loop through the board and delete the rows.
-	for(i = 0; i < size; ++i)
+	for (i = 0; i < map->size; ++i)
 	{
 		free(map->board[i]);
 	}
@@ -82,20 +87,39 @@ void deleteMap(Map* map)
 
 const char* stateToString(TileState state)
 {
+	/**
+	 * TODO
+	 * Translate the given state to a string
+	 * the values should map as follows:
+	 * X    = X
+	 * Y    = Y
+	 * NONE = _
+	 * TIE  = Tie
+	 */
 	return "";
 }
 
-void printMap(Map* map)
+int setMapState(Map* map, int xVal, int yVal, TileState state)
 {
-	return;
-}
-
-int setMapState(int xVal, int yVal, TileState state)
-{
+	/**
+	 * TODO
+	 * Set the state of a given map position to the provided values.
+	 * If xVal and yVal are in valid ranges and the state is valid, then
+	 * the position on the game map should be set to the tile.
+	 *
+	 * The return value is a completion code. The codes follow:
+	 *  1 = Success
+	 *  0 = Invalid Coordinates
+	 * -1 = Invalid state
+	 */
 	return 0;
 }
 
 TileState determineMapWinner(Map* map)
 {
+	/**
+	 * TODO
+	 * Loop over the map and determine a winner. This is either X, Y, NONE, or TIE.
+	 */
 	return NONE;
 }

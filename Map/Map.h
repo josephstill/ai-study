@@ -1,11 +1,12 @@
 /**
- * This marks the state of a tile on the game map.
+ * This marks the state of a tile on the game map and state of the overall game.
  */
 typedef enum TileState
 {
 	NONE = 0x0,
 	X    = 0x1,
-	Y    = 0x2
+	Y    = 0x2,
+	TIE  = 0x3
 } TileState;
 
 /**
@@ -27,7 +28,7 @@ typedef enum TileState
 typedef struct Map
 {
 	TileState** board;
-	//TODO add size variable
+	int size;
 } Map;
 
 /**
@@ -54,22 +55,16 @@ void deleteMap(Map* map);
 const char* stateToString(TileState state);
 
 /**
- * Prints the map to a console.
- *
- * @param map: The map to print.
- */
-void printMap(Map* map);
-
-/**
  * Sets the state of the specified game space to the provided state.
  * If (x, y) is invalid coordinates, then the finction will return 0.
  *
- * @param xVal: The x coordinate to set.
- * @param yVal: The y coordinate to set.
+ * @param map:   The map to operate on.
+ * @param xVal:  The x coordinate to set.
+ * @param yVal:  The y coordinate to set.
  * @param state: The state to set.
- * @return: 1 for success, 0 for fail
+ * @return: 1 for success, 0 for bad coordinates, -1 for bad state
  */
-int setMapState(int xVal, int yVal, TileState state);
+int setMapState(Map* map, int xVal, int yVal, TileState state);
 
 /**
  * Tests the map for a winner. If there is no winner, NONE is returned.
