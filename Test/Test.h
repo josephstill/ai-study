@@ -3,8 +3,8 @@
  */
 typedef enum Result
 {
-	FAIL = -1,
-	PASS = 0
+    FAIL = -1,
+    PASS = 0
 } Result;
 
 /**
@@ -15,8 +15,8 @@ typedef enum Result
  */
 typedef struct Test
 {
-	Result (*test)();
-	const char* name;
+    Result (*test)();
+    const char* name;
 } Test;
 
 /**
@@ -27,9 +27,9 @@ typedef struct Test
  */
 typedef struct TestSuit
 {
-	Test* tests;
-	int size;
-	const char* name;
+    Test* tests;
+    int size;
+    const char* name;
 } TestSuit;
 
 /**
@@ -46,4 +46,4 @@ const char* reportString(Result result);
  * @param suit: The test suit to run.
  * @return: A pass/fail result.
  */
-Result runTestSuit(TestSuit* suit);
+Result runTestSuite(TestSuit* suit);
