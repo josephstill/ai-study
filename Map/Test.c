@@ -1,6 +1,8 @@
 #include "Map.h" 
 #include "../Test/Test.h"
+
 #include <stdlib.h>
+#include <string.h>
 
 #define NUM_TESTS 4
 
@@ -29,7 +31,7 @@ Result testCreateMap()
     	}
     }
 
-    // We're finished, clear the memory.
+    // We're finished, clear the memory.correctly
     deleteMap(m);
 
     // Return the pass/fail
@@ -38,7 +40,12 @@ Result testCreateMap()
 
 Result testStateToString()
 {
-	return FAIL;
+    // Test to see if the strings are returned
+    if (strcmp("X", stateToString(X)) != 0) return FAIL;
+    if (strcmp("Y", stateToString(Y)) != 0) return FAIL;
+    if (strcmp("None", stateToString(NONE)) != 0) return FAIL;
+    if (strcmp("Tie", stateToString(TIE)) != 0) return FAIL;
+    return PASS;
 }
 
 Result testSetMapState()
