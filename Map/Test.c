@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define NUM_TESTS 4
+#define NUM_TESTS 5
 
 Result testCreateMap()
 {
@@ -208,6 +208,18 @@ Result testDetermineMapWinner()
     return PASS;
 }
 
+Result testGetEmptyTiles()
+{
+    /**
+     * TODO
+     * Test the generation and population of tile nodes.
+     * Remember that this is a linked list and and memory
+     * should be freed between different test situations to
+     * prevent memory leaks.
+     */
+    return FAIL;
+}
+
 int main()
 {
 	// Setup a place for the test suit
@@ -237,6 +249,8 @@ int main()
     suit.tests[2].name = "testSetMapState";
     suit.tests[3].test = &testDetermineMapWinner;
     suit.tests[3].name = "testDetermineMapWinner";
+    suit.tests[4].test = &testGetEmptyTiles;
+    suit.tests[4].name = "testGetEmptyTiles";
 
     // Run the test suite
     return (int) runTestSuite(&suit);

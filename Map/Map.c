@@ -123,3 +123,47 @@ TileState determineMapWinner(Map* map)
 	 */
 	return NONE;
 }
+
+TileListNode* getEmptyTiles(Map* map)
+{
+	// Variables
+    int i, j;
+    TileListNode *toDelete, *tmp, *retVal = NULL;
+    TileListNode **currentNode;
+
+    // Loop through the board an search for empty nodes.
+	for (i = 0, currentNode = &retVal; i < map->size; ++i)
+	{
+        for (j = 0; j < map->size; ++j)
+        {
+            if (map->board[i][j] == NONE)
+            {
+                // Create a node to store the information in.
+                *currentNode = (TileListNode*) malloc(sizeof(TileListNode));
+
+                // Check to see if creation worked
+                if (!(*currentNode))
+                {
+                        // Loop through the list from start untill end and delete the node.
+                    	for (toDelete = retVal; toDelete != NULL;)
+                    	{
+                            tmp = toDelete->next;
+                            free(toDelete);
+                            toDelete = tmp;
+                    	}
+                }
+
+                // Fill out the map data
+                (*currentNode)->x = i;
+                (*currentNode)->y = j;
+                (*currentNode)->next = NULL;
+
+                // Advance the current node pointer to the new current node
+                currentNode = &(*currentNode)->next;
+            }
+        }
+    }
+
+    // Return the result.
+    return retVal;
+}

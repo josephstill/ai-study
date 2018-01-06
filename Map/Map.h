@@ -32,6 +32,25 @@ typedef struct Map
 } Map;
 
 /**
+ * We will want a linked list to return for empty tiles
+ */
+typedef struct TileListNode TileListNode;
+
+/**
+ * This list node describes a position on the game map.
+ *
+ * @param x: The x position.
+ * @param y: The y position.
+ * @param next: A pointer to the next node.
+ */
+struct TileListNode
+{
+    int x;
+    int y;
+    TileListNode* next;
+} ;
+
+/**
  * Initializes a map object of the given size.
  *
  * @param size: The size of the map to create
@@ -73,3 +92,15 @@ int setMapState(Map* map, int xVal, int yVal, TileState state);
  * @return: The winner or NONE
  */
 TileState determineMapWinner(Map* map);
+
+/**
+ * Search the map for empty positions. Ownership of the returned list
+ * is transferred to the caller; so, freeing memory is a must to prevent leaks.
+ * If the map is full, NULL is returned.
+ *
+ * @param map: The map to search.
+ * @return: The pointer to the head of a linked list.
+ */
+TileListNode* getEmptyTiles(Map* map);
+
+
