@@ -8,11 +8,11 @@
 
 Result testCreateMap()
 {
-	// Variables
-	int i, j;
-	Result retVal = PASS;
+    // Variables
+    int i, j;
+    Result retVal = PASS;
 
-	// Construct a game map
+    // Construct a game map
     Map* m = createMap(3);
 
     // Test if size is created successfully.
