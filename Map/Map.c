@@ -1,7 +1,7 @@
 #include <stdlib.h>
 
-#include "Map.h" 
- 
+#include "Map.h"
+
 Map* createMap(int size)
 {
 	// Variables
@@ -117,11 +117,79 @@ int setMapState(Map* map, int xVal, int yVal, TileState state)
 
 TileState determineMapWinner(Map* map)
 {
-	/**
-	 * TODO
-	 * Loop over the map and determine a winner. This is either X, Y, NONE, or TIE.
-	 */
-	return NONE;
+    // Variables
+    int i, j, x, y;
+    int boardFull = 1;
+
+    // Loop over the map and determine a winner.
+    // check verticals
+    for (i = 0; i < map->size; ++i)
+    {
+        for (j = 0, x = 0, y = 0; j < map->size; ++j)
+        {
+            if (map->board[j][i] == X)
+                x++;
+            else if (map->board[j][i] == Y)
+                y++;
+            else
+                boardFull = 0;
+
+            if (x == map->size)
+                return X;
+            else if (y == map->size)
+                return Y;
+        }
+    }
+
+    // check horizontals
+    for (i = 0; i < map->size; ++i)
+    {
+        for (j = 0, x = 0, y = 0; j < map->size; ++j)
+        {
+            if (map->board[i][j] == X)
+                x++;
+            else if (map->board[i][j] == Y)
+                y++;
+
+            if (x == map->size)
+                return X;
+            else if (y == map->size)
+                return Y;
+        }
+    }
+
+    // check diagonal (top-left to bottom-right)
+    for (i = 0, x = 0, y = 0; i < map->size; ++i)
+    {
+        if (map->board[i][i] == X)
+            x++;
+        if (map->board[i][i] == Y)
+            y++;
+
+        if (x == map->size)
+            return X;
+        else if (y == map->size)
+            return Y;
+    }
+
+    // check diagonal (top-right to bottom-left)
+    for (i = map->size - 1, x = 0, y = 0; i >= 0; --i)
+    {
+        if (map->board[i][i] == X)
+            x++;
+        if (map->board[i][i] == Y)
+            y++;
+
+        if (x == map->size)
+            return X;
+        else if (y == map->size)
+            return Y;
+    }
+
+    if (boardFull)
+        return TIE;
+    else
+	   return NONE;
 }
 
 TileListNode* getEmptyTiles(Map* map)
