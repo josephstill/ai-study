@@ -222,36 +222,36 @@ Result testGetEmptyTiles()
 
 int main()
 {
-	// Setup a place for the test suit
-    TestSuit suit;
+    // Setup a place for the test suite
+    TestSuite suite;
 
-	// Load variables for the test suit.
-    suit.size = NUM_TESTS;
+    // Load variables for the test suite.
+    suite.size = NUM_TESTS;
 
-	// Ask for memory for the test suit.
-    suit.tests = (Test *) malloc(sizeof(Test) * NUM_TESTS);
+    // Ask for memory for the test suite.
+    suite.tests = (Test *) malloc(sizeof(Test) * NUM_TESTS);
 
-	// If the memory allocation fails the test fails
-    if (!suit.tests)
+    // If the memory allocation fails the test fails
+    if (!suite.tests)
     {
         return -1;
     }
 
-	// Set the suit name.
-    suit.name = "Map Tests";
+    // Set the suit name.
+    suite.name = "Map Tests";
 
-	// Load the test suit with actual tests.
-    suit.tests[0].test = &testCreateMap;
-    suit.tests[0].name = "testCreateMap";
-    suit.tests[1].test = &testStateToString;
-    suit.tests[1].name = "testStateToString";
-    suit.tests[2].test = &testSetMapState;
-    suit.tests[2].name = "testSetMapState";
-    suit.tests[3].test = &testDetermineMapWinner;
-    suit.tests[3].name = "testDetermineMapWinner";
-    suit.tests[4].test = &testGetEmptyTiles;
-    suit.tests[4].name = "testGetEmptyTiles";
+    // Load the test suit with actual tests.
+    suite.tests[0].test = &testCreateMap;
+    suite.tests[0].name = "testCreateMap";
+    suite.tests[1].test = &testStateToString;
+    suite.tests[1].name = "testStateToString";
+    suite.tests[2].test = &testSetMapState;
+    suite.tests[2].name = "testSetMapState";
+    suite.tests[3].test = &testDetermineMapWinner;
+    suite.tests[3].name = "testDetermineMapWinner";
+    suite.tests[4].test = &testGetEmptyTiles;
+    suite.tests[4].name = "testGetEmptyTiles";
 
     // Run the test suite
-    return (int) runTestSuite(&suit);
+    return (int) runTestSuite(&suite);
 }
