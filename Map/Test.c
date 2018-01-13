@@ -222,7 +222,76 @@ Result testGetEmptyTiles()
 
 Result testMapEquivalent()
 {
-    return FAIL;
+    // Variables
+	int i, j;
+	Map *a, *b;
+
+    // Make some test maps.
+	a = createMap(3);
+	b = createMap(3);
+
+    // Empty maps are equal.
+	if (!mapEquivalent(a, b)) return FAIL;
+
+    // Not so equal
+	a->board[0][0] = X;
+    if (mapEquivalent(a, b)) return FAIL;
+
+	b->board[0][0] = X;
+    if (!mapEquivalent(a, b)) return FAIL;
+
+	b->board[1][1] = X;
+	b->board[2][2] = X;
+    if (mapEquivalent(a, b)) return FAIL;
+
+	a->board[1][1] = X;
+	a->board[2][2] = X;
+    if (!mapEquivalent(a, b)) return FAIL;
+
+    // Completely different
+    for (i = 0; i < 3; ++i)
+    {
+        for (j = 0; j < 3; ++j)
+        {
+           a->board[i][j] = X;
+           b->board[i][j] = Y;
+        }
+    }
+    if (mapEquivalent(a, b)) return FAIL;
+
+    // Now the same.
+    for (i = 0; i < 3; ++i)
+    {
+        for (j = 0; j < 3; ++j)
+        {
+           a->board[i][j] = Y;
+        }
+    }
+    if (!mapEquivalent(a, b)) return FAIL;
+
+    // Clean up a bit
+    deleteMap(a);
+    deleteMap(b);
+
+    // Test that maps of different sizes shouldn't be equivalent.
+    a = createMap(3);
+    b = createMap(5);
+
+    for (i = 0; i < 3; ++i)
+    {
+        for (j = 0; j < 3; ++j)
+        {
+           a->board[i][j] = X;
+           b->board[i][j] = X;
+        }
+    }
+    if (mapEquivalent(a, b)) return FAIL;
+
+    // Clean up the rest.
+    deleteMap(a);
+    deleteMap(b);
+
+    return PASS;
 }
 
 Result testMapToString()
