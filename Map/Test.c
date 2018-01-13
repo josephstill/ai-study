@@ -223,29 +223,29 @@ Result testGetEmptyTiles()
 Result testMapEquivalent()
 {
     // Variables
-	int i, j;
-	Map *a, *b;
+    int i, j;
+    Map *a, *b;
 
     // Make some test maps.
-	a = createMap(3);
-	b = createMap(3);
+    a = createMap(3);
+    b = createMap(3);
 
     // Empty maps are equal.
 	if (!mapEquivalent(a, b)) return FAIL;
 
     // Not so equal
-	a->board[0][0] = X;
+    a->board[0][0] = X;
     if (mapEquivalent(a, b)) return FAIL;
 
-	b->board[0][0] = X;
+    b->board[0][0] = X;
     if (!mapEquivalent(a, b)) return FAIL;
 
-	b->board[1][1] = X;
-	b->board[2][2] = X;
+    b->board[1][1] = X;
+    b->board[2][2] = X;
     if (mapEquivalent(a, b)) return FAIL;
 
-	a->board[1][1] = X;
-	a->board[2][2] = X;
+    a->board[1][1] = X;
+    a->board[2][2] = X;
     if (!mapEquivalent(a, b)) return FAIL;
 
     // Completely different
