@@ -1,4 +1,4 @@
-#include "Map.h" 
+#include "Map.h"
 #include "../Test/Test.h"
 
 #include <stdlib.h>
@@ -217,7 +217,26 @@ Result testGetEmptyTiles()
      * should be freed between different test situations to
      * prevent memory leaks.
      */
-    return FAIL;
+
+     // Variables
+     int i, j;
+
+     // Create a full map
+     Map* m = createMap(3);
+     if (getEmptyTiles(m) == NULL) return FAIL;
+     m->board[0][0] = Y;
+     m->board[0][1] = X;
+     m->board[0][2] = X;
+     m->board[1][0] = X;
+     m->board[1][1] = Y;
+     m->board[1][2] = Y;
+     m->board[2][0] = Y;
+     m->board[2][1] = X;
+     m->board[2][2] = X;
+     if (!getEmptyTiles(m) == NULL) return FAIL;
+     deleteMap(m);
+
+    return PASS;
 }
 
 int main()
