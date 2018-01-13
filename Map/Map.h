@@ -119,6 +119,6 @@ int mapEquivalent(Map* a, Map* b);
  * @param m: The map to produce a string of.
  * @return: A string representation of the map.
  */
-const char* mapToString(Map m);
+const char* mapToString(Map* m);
 
 

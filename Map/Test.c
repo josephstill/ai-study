@@ -1,9 +1,11 @@
 #include "Map.h" 
 #include "../Test/Test.h"
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
+// Hoorqy! Preprocessor Directives! These constants and macros will help with tests
 #define NUM_TESTS 7
 
 Result testCreateMap()
@@ -296,7 +298,73 @@ Result testMapEquivalent()
 
 Result testMapToString()
 {
-    return FAIL;
+    // Variables
+    int i, j;
+    const char* tests[] =
+    {
+        "-------\n| | | |\n-------\n| | | |\n-------\n| | | |\n-------",
+        "-------\n|%s| | |\n-------\n| |%s| |\n-------\n| | |%s|\n-------",
+        "-------\n|%s| |%s|\n-------\n| |%s|%s|\n-------\n|%s| |%s|\n-------",
+        "-------\n|%s|%s|%s|\n-------\n|%s|%s|%s|\n-------\n|%s|%s|%s|\n-------",
+    };
+    char testBuffer[256];
+    Map *m;
+
+    // Setup the map
+    m = createMap(3);
+
+    // Test an empty map
+    if (strcmp(tests[0], mapToString(m)) != 0) return FAIL;
+
+    // Test for string one
+    m->board[0][0] = X;
+    m->board[1][1] = X;
+    m->board[2][2] = X;
+    sprintf(testBuffer, tests[1], stateToString(X), stateToString(X), stateToString(X));
+    if (strcmp(testBuffer, mapToString(m)) != 0) return FAIL;
+
+    // Test for string two
+    m->board[0][2] = Y;
+    m->board[1][2] = Y;
+    m->board[2][0] = Y;
+    sprintf(testBuffer,
+            tests[2],
+            stateToString(X),
+            stateToString(Y),
+            stateToString(X),
+            stateToString(Y),
+            stateToString(Y),
+            stateToString(X));
+    if (strcmp(testBuffer, mapToString(m)) != 0) return FAIL;
+
+    // Test for string three
+    m->board[0][1] = Y;
+    m->board[1][0] = Y;
+    m->board[2][1] = Y;
+    sprintf(testBuffer,
+            tests[3],
+            stateToString(X),
+            stateToString(Y),
+            stateToString(Y),
+            stateToString(Y),
+            stateToString(X),
+            stateToString(Y),
+            stateToString(Y),
+            stateToString(Y),
+            stateToString(X));
+    if (strcmp(testBuffer, mapToString(m)) != 0) return FAIL;
+
+    // For fun, we'll test something that shouldn't happen.
+    for (i = 0; i < 3; ++i)
+    {
+        for (j = 0; j < 3; ++j)
+        {
+            m->board[i][j] = TIE;
+        }
+    }
+    if (strcmp(tests[0], mapToString(m)) != 0) return FAIL;
+
+    return PASS;
 }
 
 int main()

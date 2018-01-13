@@ -87,16 +87,21 @@ void deleteMap(Map* map)
 
 const char* stateToString(TileState state)
 {
-	/**
-	 * TODO
-	 * Translate the given state to a string
-	 * the values should map as follows:
-	 * X    = X
-	 * Y    = Y
-	 * NONE = 'None'
-	 * TIE  = Tie
-	 */
-	return "";
+    // A switch is easier than if else if else if...
+    switch (state)
+    {
+        case X:
+            return "X";
+        case Y:
+            return "Y";
+        case TIE:
+            return "Tie";
+        case NONE: //Intentional Fall-through
+        default:
+            return "None";
+    }
+    // This should never happen; however, sometimes a compiler may not be happy without an explicit return
+	return "None";
 }
 
 int setMapState(Map* map, int xVal, int yVal, TileState state)
@@ -245,7 +250,7 @@ int mapEquivalent(Map* a, Map* b)
     return 0;
 }
 
-const char* mapToString(Map m)
+const char* mapToString(Map* m)
 {
     /**
      * TODO
