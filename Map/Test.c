@@ -225,7 +225,7 @@ Result testGetEmptyTiles()
 
      // Create a full map
      Map* m = createMap(3);
-     if (getEmptyTiles(m) == NULL) return FAIL;
+     if (getEmptyTiles(m)) return FAIL;
      m->board[0][0] = Y;
      m->board[0][1] = X;
      m->board[0][2] = X;
@@ -235,7 +235,7 @@ Result testGetEmptyTiles()
      m->board[2][0] = Y;
      m->board[2][1] = X;
      m->board[2][2] = X;
-     if (!getEmptyTiles(m) == NULL) return FAIL;
+     if (!getEmptyTiles(m)) return FAIL;
      deleteMap(m);
 
     return PASS;

@@ -217,7 +217,7 @@ TileListNode* getEmptyTiles(Map* map)
                 // Check to see if creation worked
                 if (!(*currentNode))
                 {
-                        // Loop through the list from start untill end and delete the node.
+                        // Loop through the list from start until end and delete the node.
                     	for (toDelete = retVal; toDelete != NULL;)
                     	{
                             tmp = toDelete->next;
