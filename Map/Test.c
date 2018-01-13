@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define NUM_TESTS 5
+#define NUM_TESTS 7
 
 Result testCreateMap()
 {
@@ -239,38 +239,121 @@ Result testGetEmptyTiles()
     return PASS;
 }
 
+Result testMapEquivalent()
+{
+    // Variables
+    int i, j;
+    Map *a, *b;
+
+    // Make some test maps.
+    a = createMap(3);
+    b = createMap(3);
+
+    // Empty maps are equal.
+	if (!mapEquivalent(a, b)) return FAIL;
+
+    // Not so equal
+    a->board[0][0] = X;
+    if (mapEquivalent(a, b)) return FAIL;
+
+    b->board[0][0] = X;
+    if (!mapEquivalent(a, b)) return FAIL;
+
+    b->board[1][1] = X;
+    b->board[2][2] = X;
+    if (mapEquivalent(a, b)) return FAIL;
+
+    a->board[1][1] = X;
+    a->board[2][2] = X;
+    if (!mapEquivalent(a, b)) return FAIL;
+
+    // Completely different
+    for (i = 0; i < 3; ++i)
+    {
+        for (j = 0; j < 3; ++j)
+        {
+           a->board[i][j] = X;
+           b->board[i][j] = Y;
+        }
+    }
+    if (mapEquivalent(a, b)) return FAIL;
+
+    // Now the same.
+    for (i = 0; i < 3; ++i)
+    {
+        for (j = 0; j < 3; ++j)
+        {
+           a->board[i][j] = Y;
+        }
+    }
+    if (!mapEquivalent(a, b)) return FAIL;
+
+    // Clean up a bit
+    deleteMap(a);
+    deleteMap(b);
+
+    // Test that maps of different sizes shouldn't be equivalent.
+    a = createMap(3);
+    b = createMap(5);
+
+    for (i = 0; i < 3; ++i)
+    {
+        for (j = 0; j < 3; ++j)
+        {
+           a->board[i][j] = X;
+           b->board[i][j] = X;
+        }
+    }
+    if (mapEquivalent(a, b)) return FAIL;
+
+    // Clean up the rest.
+    deleteMap(a);
+    deleteMap(b);
+
+    return PASS;
+}
+
+Result testMapToString()
+{
+    return FAIL;
+}
+
 int main()
 {
-	// Setup a place for the test suit
-    TestSuit suit;
+    // Setup a place for the test suite
+    TestSuite suite;
 
-	// Load variables for the test suit.
-    suit.size = NUM_TESTS;
+    // Load variables for the test suite.
+    suite.size = NUM_TESTS;
 
-	// Ask for memory for the test suit.
-    suit.tests = (Test *) malloc(sizeof(Test) * NUM_TESTS);
+    // Ask for memory for the test suite.
+    suite.tests = (Test *) malloc(sizeof(Test) * NUM_TESTS);
 
-	// If the memory allocation fails the test fails
-    if (!suit.tests)
+    // If the memory allocation fails the test fails
+    if (!suite.tests)
     {
         return -1;
     }
 
-	// Set the suit name.
-    suit.name = "Map Tests";
+    // Set the suit name.
+    suite.name = "Map Tests";
 
-	// Load the test suit with actual tests.
-    suit.tests[0].test = &testCreateMap;
-    suit.tests[0].name = "testCreateMap";
-    suit.tests[1].test = &testStateToString;
-    suit.tests[1].name = "testStateToString";
-    suit.tests[2].test = &testSetMapState;
-    suit.tests[2].name = "testSetMapState";
-    suit.tests[3].test = &testDetermineMapWinner;
-    suit.tests[3].name = "testDetermineMapWinner";
-    suit.tests[4].test = &testGetEmptyTiles;
-    suit.tests[4].name = "testGetEmptyTiles";
+    // Load the test suit with actual tests.
+    suite.tests[0].test = &testCreateMap;
+    suite.tests[0].name = "testCreateMap";
+    suite.tests[1].test = &testStateToString;
+    suite.tests[1].name = "testStateToString";
+    suite.tests[2].test = &testSetMapState;
+    suite.tests[2].name = "testSetMapState";
+    suite.tests[3].test = &testDetermineMapWinner;
+    suite.tests[3].name = "testDetermineMapWinner";
+    suite.tests[4].test = &testGetEmptyTiles;
+    suite.tests[4].name = "testGetEmptyTiles";
+    suite.tests[5].test = &testMapEquivalent;
+    suite.tests[5].name = "testMapEquivalent";
+    suite.tests[6].test = &testMapToString;
+    suite.tests[6].name = "testMapToString";
 
     // Run the test suite
-    return (int) runTestSuite(&suit);
+    return (int) runTestSuite(&suite);
 }

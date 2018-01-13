@@ -20,17 +20,17 @@ typedef struct Test
 } Test;
 
 /**
- * This struct defines a test suit of unit tests.
+ * This struct defines a teste suit of unit tests.
  *
  * @param tests: A list of tests.
  * @param size: The number of tests.
  */
-typedef struct TestSuit
+typedef struct TestSuite
 {
     Test* tests;
     int size;
     const char* name;
-} TestSuit;
+} TestSuite;
 
 /**
  * Converts a bool pass/fail value into a string.
@@ -46,4 +46,4 @@ const char* reportString(Result result);
  * @param suit: The test suit to run.
  * @return: A pass/fail result.
  */
-Result runTestSuite(TestSuit* suit);
+Result runTestSuite(TestSuite* suite);

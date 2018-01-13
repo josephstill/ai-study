@@ -93,7 +93,7 @@ const char* stateToString(TileState state)
 	 * the values should map as follows:
 	 * X    = X
 	 * Y    = Y
-	 * NONE = _
+	 * NONE = 'None'
 	 * TIE  = Tie
 	 */
 	return "";
@@ -234,4 +234,31 @@ TileListNode* getEmptyTiles(Map* map)
 
     // Return the result.
     return retVal;
+}
+
+int mapEquivalent(Map* a, Map* b)
+{
+    /**
+     * TODO
+     * Check if the two maps have the exact same entries.
+     */
+    return 0;
+}
+
+const char* mapToString(Map m)
+{
+    /**
+     * TODO
+     * Generate a string representation of the map. I should look like this
+     * -------
+     * |X|Y| |
+     * -------
+     * | |X|Y|
+     * -------
+     * |Y|X| |
+     * -------
+     * The X and Y tokens are generated in another function. Be careful, there
+     * may be a difference in what the function returns and how the map should look.
+     */
+    return "";
 }

@@ -13,21 +13,21 @@ const char* reportString(Result result)
     return "Fail";
 }
 
-Result runTestSuite(TestSuit* suit)
+Result runTestSuite(TestSuite* suite)
 {
     // Variables
     int i;
     Result retVal;
 
     // Print the test suit name.
-    printf("Running test suit: %s\n", suit->name);
+    printf("Running test suit: %s\n", suite->name);
 
     // Loop through the test suite and run each test
-    for (i = 0, retVal = PASS; i < suit->size && retVal == PASS; ++i)
+    for (i = 0, retVal = PASS; i < suite->size && retVal == PASS; ++i)
     {
         // Run the test and print the result.
-        Result tmp = suit->tests[i].test();
-        printf("\t%s: %s\n", suit->tests[i].name, reportString(tmp));
+        Result tmp = suite->tests[i].test();
+        printf("\t%s: %s\n", suite->tests[i].name, reportString(tmp));
     }
 
     // Return the result.
