@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define NUM_TESTS 5
+#define NUM_TESTS 7
 
 Result testCreateMap()
 {
@@ -220,6 +220,16 @@ Result testGetEmptyTiles()
     return FAIL;
 }
 
+Result testMapEquivalent()
+{
+    return FAIL;
+}
+
+Result testMapToString()
+{
+    return FAIL;
+}
+
 int main()
 {
     // Setup a place for the test suite
@@ -251,6 +261,10 @@ int main()
     suite.tests[3].name = "testDetermineMapWinner";
     suite.tests[4].test = &testGetEmptyTiles;
     suite.tests[4].name = "testGetEmptyTiles";
+    suite.tests[5].test = &testMapEquivalent;
+    suite.tests[5].name = "testMapEquivalent";
+    suite.tests[6].test = &testMapToString;
+    suite.tests[6].name = "testMapToString";
 
     // Run the test suite
     return (int) runTestSuite(&suite);

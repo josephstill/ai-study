@@ -103,4 +103,22 @@ TileState determineMapWinner(Map* map);
  */
 TileListNode* getEmptyTiles(Map* map);
 
+/**
+ * Checks maps for their equivalency. If the maps are equivalent 1 is returned
+ * otherwise 0 is returned.
+ *
+ * @param a: The first map to check against.
+ * @param b: The second map to check against.
+ * @return: 1 for equivalent and 0 for not equivalent
+ */
+int mapEquivalent(Map* a, Map* b);
+
+/**
+ * Returns a string representation of the map.
+ *
+ * @param m: The map to produce a string of.
+ * @return: A string representation of the map.
+ */
+const char* mapToString(Map m);
+
 
