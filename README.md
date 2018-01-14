@@ -13,6 +13,7 @@ Unit tests will be used to make sure that code is tested throughout development.
 ## Code Standards
 Code will be written in C and built with GCC through a makefile. Following are some highlights of coding standards.
 * There should be no compiler warnings.
+* Unit test failures should be compilation failures (waived for now)
 * Function names, variable names, and typedefs are camel case.
 * Function names and variable names are lower case while typedefs are upper case.
 * Enums and preprocessor variable names are all caps with underscore between words.

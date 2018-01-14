@@ -101,7 +101,7 @@ const char* stateToString(TileState state)
             return "None";
     }
     // This should never happen; however, sometimes a compiler may not be happy without an explicit return
-	return "None";
+    return "None";
 }
 
 int setMapState(Map* map, int xVal, int yVal, TileState state)
@@ -117,7 +117,7 @@ int setMapState(Map* map, int xVal, int yVal, TileState state)
 	 *  0 = Invalid Coordinates
 	 * -1 = Invalid state
 	 */
-	return 0;
+    return 0;
 }
 
 TileState determineMapWinner(Map* map)

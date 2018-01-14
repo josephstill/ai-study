@@ -47,3 +47,11 @@ const char* reportString(Result result);
  * @return: A pass/fail result.
  */
 Result runTestSuite(TestSuite* suite);
+
+/**
+ * Runs a test suit and does not stop execution on test failure.
+ *
+ * @param suit: The test suit to run.
+ * @return: A pass/fail result.
+ */
+Result runTestSuiteNoFail(TestSuite* suite);

@@ -390,6 +390,7 @@ int main()
 {
     // Setup a place for the test suite
     TestSuite suite;
+    Result result;
 
     // Load variables for the test suite.
     suite.size = NUM_TESTS;
@@ -423,5 +424,5 @@ int main()
     suite.tests[6].name = "testMapToString";
 
     // Run the test suite
-    return (int) runTestSuite(&suite);
+    return (int) runTestSuiteNoFail(&suite);
 }
