@@ -221,11 +221,31 @@ Result testGetEmptyTiles()
      */
 
      // Variables
+     TileListNode* head = NULL;
+     TileListNode* temp = NULL;
      int i, j;
 
-     // Create a full map
+     // Create map and test empty
      Map* m = createMap(3);
-     if (getEmptyTiles(m)) return FAIL;
+     if (!getEmptyTiles(m)) return FAIL;
+
+     head = getEmptyTiles(m);
+
+     // Check the x,y map data matches
+     for (i = 0; i < 3; ++i)
+     {
+         for (j = 0; j < 3; ++j)
+         {
+             if (head->x != i) return FAIL;
+             if (head->y != j) return FAIL;
+             temp = head;
+             head = head->next;
+             free(temp);
+         }
+     }
+     free(head);
+
+     // Fill and test full map
      m->board[0][0] = Y;
      m->board[0][1] = X;
      m->board[0][2] = X;
@@ -235,7 +255,9 @@ Result testGetEmptyTiles()
      m->board[2][0] = Y;
      m->board[2][1] = X;
      m->board[2][2] = X;
-     if (!getEmptyTiles(m)) return FAIL;
+     if (getEmptyTiles(m)) return FAIL;
+
+     // Clean up
      deleteMap(m);
 
     return PASS;
