@@ -1,3 +1,6 @@
+#ifndef _MAP_H
+#define _MAP_H
+
 /**
  * This marks the state of a tile on the game map and state of the overall game.
  */
@@ -121,4 +124,13 @@ int mapEquivalent(Map* a, Map* b);
  */
 const char* mapToString(Map* m);
 
+/**
+ * Creates a deep copy of the provided map. The maps will pass an equivalence test
+ * but the pointers will be different. If there is an issue NULL will be returned.
+ *
+ * @param map: The map to copy.
+ * @return: A deep copy of the map.
+ */
+Map* deepCopy(Map* map);
 
+#endif
