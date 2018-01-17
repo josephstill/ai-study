@@ -180,9 +180,9 @@ TileState determineMapWinner(Map* map)
     // check diagonal (top-right to bottom-left)
     for (i = map->size - 1, x = 0, y = 0; i >= 0; --i)
     {
-        if (map->board[i][i] == X)
+        if (map->board[map->size - i - 1][i] == X)
             x++;
-        if (map->board[i][i] == Y)
+        if (map->board[map->size - i - 1][i] == Y)
             y++;
 
         if (x == map->size)
@@ -243,18 +243,31 @@ TileListNode* getEmptyTiles(Map* map)
 
 int mapEquivalent(Map* a, Map* b)
 {
-    /**
-     * TODO
-     * Check if the two maps have the exact same entries.
-     */
-    return 0;
+    // Variables
+    int i, j;
+
+    // First, check that map sizes match
+    if (a->size != b->size) return 0;
+
+    // Loop through the board and compare the two maps
+    for (i = 0; i < a->size; ++i)
+    {
+        for (j = 0; j< a->size; ++j)
+        {
+            // Return if not equivalent
+            if (a->board[i][j] != b->board[i][j]) return 0;
+        }
+    }
+
+    // They are equivalent
+    return 1;
 }
 
 const char* mapToString(Map* m)
 {
     /**
      * TODO
-     * Generate a string representation of the map. I should look like this
+     * Generate a string representation of the map. It should look like this
      * -------
      * |X|Y| |
      * -------
@@ -265,6 +278,7 @@ const char* mapToString(Map* m)
      * The X and Y tokens are generated in another function. Be careful, there
      * may be a difference in what the function returns and how the map should look.
      */
+
     return "";
 }
 

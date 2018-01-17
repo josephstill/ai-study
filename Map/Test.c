@@ -103,29 +103,29 @@ Result testDetermineMapWinner()
 {
 	// Create a map and fill row 1
     Map* m = createMap(3);
-    if (!determineMapWinner(m) == NONE) return FAIL;
+    if (determineMapWinner(m) != NONE) return FAIL;
     m->board[0][0] = X;
     m->board[1][0] = X;
     m->board[2][0] = X;
-    if (!determineMapWinner(m) == X) return FAIL;
+    if (determineMapWinner(m) != X) return FAIL;
     deleteMap(m);
 
     // Create a map and fill row 2
     m = createMap(3);
     m->board[0][1] = Y;
     m->board[1][1] = Y;
-    if (!determineMapWinner(m) == NONE) return FAIL;
+    if (determineMapWinner(m) != NONE) return FAIL;
     m->board[2][1] = Y;
-    if (!determineMapWinner(m) == Y) return FAIL;
+    if (determineMapWinner(m) != Y) return FAIL;
     deleteMap(m);
 
     // Create a map and fill row 3
     m = createMap(3);
     m->board[0][2] = X;
-    if (!determineMapWinner(m) == NONE) return FAIL;
+    if (determineMapWinner(m) != NONE) return FAIL;
     m->board[1][2] = X;
     m->board[2][2] = X;
-    if (!determineMapWinner(m) == X) return FAIL;
+    if (determineMapWinner(m) != X) return FAIL;
     deleteMap(m);
 
     // Create a map and fill column 1
@@ -133,7 +133,7 @@ Result testDetermineMapWinner()
     m->board[0][0] = Y;
     m->board[0][1] = Y;
     m->board[0][2] = Y;
-    if (!determineMapWinner(m) == Y) return FAIL;
+    if (determineMapWinner(m) != Y) return FAIL;
     deleteMap(m);
 
     // Create a map and fill column 2
@@ -141,7 +141,7 @@ Result testDetermineMapWinner()
     m->board[1][0] = Y;
     m->board[1][1] = Y;
     m->board[1][2] = Y;
-    if (!determineMapWinner(m) == Y) return FAIL;
+    if (determineMapWinner(m) != Y) return FAIL;
     deleteMap(m);
 
     // Create a map and fill column 3
@@ -149,7 +149,7 @@ Result testDetermineMapWinner()
     m->board[2][0] = X;
     m->board[2][1] = X;
     m->board[2][2] = X;
-    if (!determineMapWinner(m) == X) return FAIL;
+    if (determineMapWinner(m) != X) return FAIL;
     deleteMap(m);
 
     // Create a map and fill diagonal 1
@@ -157,7 +157,7 @@ Result testDetermineMapWinner()
     m->board[0][0] = X;
     m->board[1][1] = X;
     m->board[2][2] = X;
-    if (!determineMapWinner(m) == X) return FAIL;
+    if (determineMapWinner(m) != X) return FAIL;
     deleteMap(m);
 
     // Create a map and fill diagonal 2
@@ -165,45 +165,45 @@ Result testDetermineMapWinner()
     m->board[2][0] = Y;
     m->board[1][1] = Y;
     m->board[0][2] = Y;
-    if (!determineMapWinner(m) == Y) return FAIL;
+    if (determineMapWinner(m) != Y) return FAIL;
     deleteMap(m);
 
     // Create tied map
     m = createMap(3);
     m->board[0][0] = X;
-    if (!determineMapWinner(m) == NONE) return FAIL;
+    if (determineMapWinner(m) != NONE) return FAIL;
     m->board[0][1] = Y;
-    if (!determineMapWinner(m) == NONE) return FAIL;
+    if (determineMapWinner(m) != NONE) return FAIL;
     m->board[0][2] = Y;
-    if (!determineMapWinner(m) == NONE) return FAIL;
+    if (determineMapWinner(m) != NONE) return FAIL;
     m->board[1][0] = Y;
-    if (!determineMapWinner(m) == NONE) return FAIL;
+    if (determineMapWinner(m) != NONE) return FAIL;
     m->board[1][1] = X;
-    if (!determineMapWinner(m) == NONE) return FAIL;
+    if (determineMapWinner(m) != NONE) return FAIL;
     m->board[1][2] = X;
-    if (!determineMapWinner(m) == NONE) return FAIL;
+    if (determineMapWinner(m) != NONE) return FAIL;
     m->board[2][0] = X;
-    if (!determineMapWinner(m) == NONE) return FAIL;
+    if (determineMapWinner(m) != NONE) return FAIL;
     m->board[2][1] = Y;
-    if (!determineMapWinner(m) == NONE) return FAIL;
+    if (determineMapWinner(m) != NONE) return FAIL;
     m->board[2][2] = Y;
-    if (!determineMapWinner(m) == TIE) return FAIL;
+    if (determineMapWinner(m) != TIE) return FAIL;
     deleteMap(m);
 
     // Create a large map and fill diagonal 1
     m = createMap(6);
     m->board[0][0] = X;
-    if (!determineMapWinner(m) == NONE) return FAIL;
+    if (determineMapWinner(m) != NONE) return FAIL;
     m->board[1][1] = X;
-    if (!determineMapWinner(m) == NONE) return FAIL;
+    if (determineMapWinner(m) != NONE) return FAIL;
     m->board[2][2] = X;
-    if (!determineMapWinner(m) == NONE) return FAIL;
+    if (determineMapWinner(m) != NONE) return FAIL;
     m->board[3][3] = X;
-    if (!determineMapWinner(m) == NONE) return FAIL;
+    if (determineMapWinner(m) != NONE) return FAIL;
     m->board[4][4] = X;
-    if (!determineMapWinner(m) == NONE) return FAIL;
+    if (determineMapWinner(m) != NONE) return FAIL;
     m->board[5][5] = X;
-    if (!determineMapWinner(m) == X) return FAIL;
+    if (determineMapWinner(m) != X) return FAIL;
     deleteMap(m);
 
     // If we made it this far, its a success!
@@ -221,11 +221,31 @@ Result testGetEmptyTiles()
      */
 
      // Variables
+     TileListNode* head = NULL;
+     TileListNode* temp = NULL;
      int i, j;
 
-     // Create a full map
+     // Create map and test empty
      Map* m = createMap(3);
-     if (getEmptyTiles(m)) return FAIL;
+     if (!getEmptyTiles(m)) return FAIL;
+
+     head = getEmptyTiles(m);
+
+     // Check the x,y map data matches
+     for (i = 0; i < 3; ++i)
+     {
+         for (j = 0; j < 3; ++j)
+         {
+             if (head->x != i) return FAIL;
+             if (head->y != j) return FAIL;
+             temp = head;
+             head = head->next;
+             free(temp);
+         }
+     }
+     free(head);
+
+     // Fill and test full map
      m->board[0][0] = Y;
      m->board[0][1] = X;
      m->board[0][2] = X;
@@ -235,7 +255,9 @@ Result testGetEmptyTiles()
      m->board[2][0] = Y;
      m->board[2][1] = X;
      m->board[2][2] = X;
-     if (!getEmptyTiles(m)) return FAIL;
+     if (getEmptyTiles(m)) return FAIL;
+
+     // Clean up
      deleteMap(m);
 
     return PASS;
