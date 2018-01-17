@@ -180,9 +180,9 @@ TileState determineMapWinner(Map* map)
     // check diagonal (top-right to bottom-left)
     for (i = map->size - 1, x = 0, y = 0; i >= 0; --i)
     {
-        if (map->board[i][i] == X)
+        if (map->board[map->size - i - 1][i] == X)
             x++;
-        if (map->board[i][i] == Y)
+        if (map->board[map->size - i - 1][i] == Y)
             y++;
 
         if (x == map->size)
