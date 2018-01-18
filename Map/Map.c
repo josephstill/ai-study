@@ -1,4 +1,6 @@
 #include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
 
 #include "Map.h"
 
@@ -265,19 +267,39 @@ int mapEquivalent(Map* a, Map* b)
 
 const char* mapToString(Map* m)
 {
-    /**
-     * TODO
-     * Generate a string representation of the map. It should look like this
-     * -------
-     * |X|Y| |
-     * -------
-     * | |X|Y|
-     * -------
-     * |Y|X| |
-     * -------
-     * The X and Y tokens are generated in another function. Be careful, there
-     * may be a difference in what the function returns and how the map should look.
-     */
+    // Variables
+    char *mapBuffer = (char *) malloc(sizeof(char) * 256);
+    char *rowBuffer = (char *) malloc(sizeof(char) * 256);
+    int i, j;
 
-    return "";
+    // Loop through the board to get game piece data
+    for (i = 0; i < m->size; ++i)
+    {
+        strcat(mapBuffer, "-------\n");
+        for (j = 0; j < m->size; ++j)
+        {
+            // Checks for valid game piece and handles the empty cell case
+            if (m->board[i][j] != NONE && m->board[i][j] != TIE)
+            {
+                sprintf(rowBuffer, "|%s", stateToString(m->board[i][j]));
+                strcat(mapBuffer, rowBuffer);
+            }
+            else
+            {
+                strcat(mapBuffer, "| ");
+            }
+        }
+
+        // Close out the row line
+        strcat(mapBuffer, "|\n");
+    }
+
+    // Last line of the board without newline character
+    strcat(mapBuffer, "-------");
+
+    // Free allocated memory of rowBuffer
+    /* !!! what about mapBuffer ??? */
+    free(rowBuffer);
+
+    return mapBuffer;
 }
