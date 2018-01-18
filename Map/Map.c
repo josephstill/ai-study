@@ -303,3 +303,66 @@ const char* mapToString(Map* m)
 
     return mapBuffer;
 }
+
+Map* deepCopy(Map* map)
+{
+    // Variables
+    int i, j;
+    Map* retVal;
+
+    // Allocate the new map
+    retVal = (Map*) malloc(sizeof(Map));
+
+    // Did memory get allotted?
+    if (!retVal) return NULL;
+
+    // Copy the new size
+    retVal->size = map->size;
+
+    // Allocate board space
+    retVal->board = (TileState **) malloc(sizeof(TileState *) * retVal->size);
+
+    // Did board memory get allocated?
+    if (!retVal->board)
+    {
+        // Delete the map
+        free(retVal);
+        return NULL;
+    }
+
+    // Now we'll step through and allocate the individual rows.
+    for (i = 0; i < retVal->size; ++i)
+    {
+        // Allocate memory for the row.
+        retVal->board[i] = (TileState *) malloc(sizeof(TileState) * retVal->size);
+
+        // Check the validity of memory allocation.
+        if (!retVal->board[i])
+        {
+            // There was an error, delete allocated rows.
+            for (j = i - 1; j <= 0; --j)
+            {
+                free(retVal->board[j]);
+            }
+
+            // Delete the board pointer memory
+            free(retVal->board);
+
+            // Delete the map memory.
+            free(retVal);
+        }
+    }
+
+    // It looks like the memory was all set up correctly.
+    // Now we copy the elements over.
+    for (i = 0; i < retVal->size; ++i)
+    {
+        for (j = 0; j < retVal->size; ++j)
+        {
+            retVal->board[i][j] = map->board[i][j];
+        }
+    }
+
+    // All done
+    return retVal;
+}

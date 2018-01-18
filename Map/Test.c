@@ -6,7 +6,7 @@
 #include <string.h>
 
 // Hoorqy! Preprocessor Directives! These constants and macros will help with tests
-#define NUM_TESTS 7
+#define NUM_TESTS 8
 
 Result testCreateMap()
 {
@@ -405,6 +405,161 @@ Result testMapToString()
     }
     if (strcmp(tests[0], mapToString(m)) != 0) return FAIL;
 
+    // Cleanup
+    deleteMap(m);
+
+    return PASS;
+}
+
+Result testDeepCopy()
+{
+    // Variables
+    int i, j;
+    Map *m, *n;
+
+    // Set up the test
+    m = createMap(3);
+    n = deepCopy(m);
+
+    // Make sure the copy did stuff
+    if (!n) return FAIL;
+
+    // Make sure the copy doesn't just return the same pointer
+    if (n == m) return FAIL;
+
+    // Make sure the sizes match
+    if (m->size != n->size) return FAIL;
+
+    // Make sure all the items in the map match
+    for (i = 0; i < m->size; ++i)
+    {
+        for (j = 0; j < m->size; ++j)
+        {
+            if (m->board[i][j] != n->board[i][j]) return FAIL;
+        }
+    }
+
+    // Prepare for the next test.
+    deleteMap(n);
+
+    // Setup a test.
+    m->board[0][0] = Y;
+    m->board[0][1] = X;
+    m->board[1][2] = Y;
+    m->board[2][2] = X;
+
+    // Perform the next test
+    n = deepCopy(m);
+
+    // Make sure the copy did stuff
+    if (!n) return FAIL;
+
+    // Make sure the copy doesn't just return the same pointer
+    if (n == m) return FAIL;
+
+    // Make sure the sizes match
+    if (m->size != n->size) return FAIL;
+
+    // Make sure all the items in the map match
+    for (i = 0; i < m->size; ++i)
+    {
+        for (j = 0; j < m->size; ++j)
+        {
+            if (m->board[i][j] != n->board[i][j]) return FAIL;
+        }
+    }
+
+    // Prepare for the next test.
+    deleteMap(n);
+
+    // Setup a test.
+    m->board[0][2] = X;
+    m->board[1][1] = Y;
+    m->board[2][0] = Y;
+    m->board[2][1] = X;
+    m->board[2][2] = Y;
+
+    // Perform the next test
+    n = deepCopy(m);
+
+    // Make sure the copy did stuff
+    if (!n) return FAIL;
+
+    // Make sure the copy doesn't just return the same pointer
+    if (n == m) return FAIL;
+
+    // Make sure the sizes match
+    if (m->size != n->size) return FAIL;
+
+    // Make sure all the items in the map match
+    for (i = 0; i < m->size; ++i)
+    {
+        for (j = 0; j < m->size; ++j)
+        {
+            if (m->board[i][j] != n->board[i][j]) return FAIL;
+        }
+    }
+
+    // Now test that pointers are not copied for the board.
+    for (i = 0; i < m->size; ++i)
+    {
+        for (j = 0; j < m->size; ++j)
+        {
+            m->board[i][j] = X;
+            n->board[i][j] = Y;
+        }
+    }
+
+    // Make sure none of the elements match.
+    for (i = 0; i < m->size; ++i)
+    {
+        for (j = 0; j < m->size; ++j)
+        {
+            if (m->board[i][j] == n->board[i][j]) return FAIL;
+        }
+    }
+
+    // Prepare for the next test.
+    deleteMap(m);
+    deleteMap(n);
+
+    // The final test.
+    m = createMap(5);
+
+    // Load the new map.
+    for (i = 0; i < m->size; ++i)
+    {
+        for (j = 0; j < m->size; ++j)
+        {
+            m->board[i][j] = X;
+        }
+    }
+
+    // Perform the final test
+    n = deepCopy(m);
+
+    // Make sure the copy did stuff
+    if (!n) return FAIL;
+
+    // Make sure the copy doesn't just return the same pointer
+    if (n == m) return FAIL;
+
+    // Make sure the sizes match
+    if (m->size != n->size) return FAIL;
+
+    // Make sure all the items in the map match
+    for (i = 0; i < m->size; ++i)
+    {
+        for (j = 0; j < m->size; ++j)
+        {
+            if (m->board[i][j] != n->board[i][j]) return FAIL;
+        }
+    }
+
+    // Prepare for the next test.
+    deleteMap(m);
+    deleteMap(n);
+
     return PASS;
 }
 
@@ -444,6 +599,8 @@ int main()
     suite.tests[5].name = "testMapEquivalent";
     suite.tests[6].test = &testMapToString;
     suite.tests[6].name = "testMapToString";
+    suite.tests[7].test = &testDeepCopy;
+    suite.tests[7].name = "testDeepCopy";
 
     // Run the test suite
     return (int) runTestSuiteNoFail(&suite);
