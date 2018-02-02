@@ -6,7 +6,7 @@
 #include <string.h>
 
 // Hoorqy! Preprocessor Directives! These constants and macros will help with tests
-#define NUM_TESTS 8
+#define NUM_TESTS 9
 
 Result testCreateMap()
 {
@@ -564,6 +564,16 @@ Result testDeepCopy()
     return PASS;
 }
 
+Result testToggleTileState()
+{
+    // This should test all of the possible inputs.
+    if (toggleTileState(X) != Y) return FAIL;
+    if (toggleTileState(Y) != X) return FAIL;
+    if (toggleTileState(NONE) != NONE) return FAIL;
+    if (toggleTileState(TIE) != NONE) return FAIL;
+    return PASS;
+}
+
 int main()
 {
     // Setup a place for the test suite
@@ -602,6 +612,8 @@ int main()
     suite.tests[6].name = "testMapToString";
     suite.tests[7].test = &testDeepCopy;
     suite.tests[7].name = "testDeepCopy";
+    suite.tests[8].test = &testToggleTileState;
+    suite.tests[8].name = "testToggleTileState";
 
     // Run the test suite
     return (int) runTestSuiteNoFail(&suite);

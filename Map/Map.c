@@ -374,3 +374,13 @@ Map* deepCopy(Map* map)
     // All done
     return retVal;
 }
+
+TileState toggleTileState(TileState state)
+{
+    // If the state is valid, toggle it.
+    if (state == X) return Y;
+    if (state == Y) return X;
+
+    // If the state is not valid, NONE
+    return NONE;
+}

@@ -134,4 +134,12 @@ const char* mapToString(Map* m);
  */
 Map* deepCopy(Map* map);
 
+/**
+ * Toggles the given player state to the opposing player.
+ *
+ * @param state: The given player state.
+ * @return: The opposite player state.
+ */
+TileState toggleTileState(TileState state);
+
 #endif
