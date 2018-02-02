@@ -30,7 +30,13 @@ struct WinnerTreeNode
     int draw;
 };
 
-
-
+/**
+ * Creates a winner tree with the given look ahead. NULL is returned if there is an issue.
+ *
+ * @param map: The map that is being used.
+ * @param lookAhead: The number of moves to look ahead (Not currently in use).
+ * @return: Returns a pointer to the tree or NULL if there is an issue.
+ */
+WinnerTreeNode* createWinnerTree(Map* map, int lookAhead);
 
 #endif
