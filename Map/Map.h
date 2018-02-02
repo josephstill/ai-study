@@ -102,9 +102,10 @@ TileState determineMapWinner(Map* map);
  * If the map is full, NULL is returned.
  *
  * @param map: The map to search.
+ * @param size: Loaded with the size of the list returned.
  * @return: The pointer to the head of a linked list.
  */
-TileListNode* getEmptyTiles(Map* map);
+TileListNode* getEmptyTiles(Map* map, int* size);
 
 /**
  * Checks maps for their equivalency. If the maps are equivalent 1 is returned

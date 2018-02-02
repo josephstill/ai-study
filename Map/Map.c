@@ -108,18 +108,17 @@ const char* stateToString(TileState state)
 
 int setMapState(Map* map, int xVal, int yVal, TileState state)
 {
-	/**
-	 * TODO
-	 * Set the state of a given map position to the provided values.
-	 * If xVal and yVal are in valid ranges and the state is valid, then
-	 * the position on the game map should be set to the tile.
-	 *
-	 * The return value is a completion code. The codes follow:
-	 *  1 = Success
-	 *  0 = Invalid Coordinates
-	 * -1 = Invalid state
-	 */
-    return 0;
+    // Lets test the input for validity first.
+    if (xVal >= map->size || xVal < 0) return 0;
+    if (yVal >= map->size || yVal < 0) return 0;
+    if (state != X && state != Y) return 0;
+    if (map->board[xVal][yVal] != NONE) return 0;
+
+    // Set the value
+    map->board[xVal][yVal] = state;
+
+    // Success!
+    return 1;
 }
 
 TileState determineMapWinner(Map* map)
@@ -199,12 +198,15 @@ TileState determineMapWinner(Map* map)
 	   return NONE;
 }
 
-TileListNode* getEmptyTiles(Map* map)
+TileListNode* getEmptyTiles(Map* map, int* size)
 {
 	// Variables
     int i, j;
     TileListNode *toDelete, *tmp, *retVal = NULL;
     TileListNode **currentNode;
+
+    // Clear the size
+    *size = 0;
 
     // Loop through the board an search for empty nodes.
 	for (i = 0, currentNode = &retVal; i < map->size; ++i)
@@ -226,6 +228,9 @@ TileListNode* getEmptyTiles(Map* map)
                             free(toDelete);
                             toDelete = tmp;
                     	}
+
+                    	// If there is a problem, clear the size.
+                    	*size = 0;
                 }
 
                 // Fill out the map data
@@ -235,6 +240,9 @@ TileListNode* getEmptyTiles(Map* map)
 
                 // Advance the current node pointer to the new current node
                 currentNode = &(*currentNode)->next;
+
+                // Increase the size of the list.
+                (*size)++;
             }
         }
     }

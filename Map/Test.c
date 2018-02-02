@@ -74,7 +74,7 @@ Result testSetMapState()
     	}
     }
 
-    // Make sure that you can reset a set state.
+    // Make sure that you can't reset a set state.
     if (setMapState(m, 1, 2, X)) return FAIL;
 
     // Reset the map for more tests
@@ -223,13 +223,14 @@ Result testGetEmptyTiles()
      // Variables
      TileListNode* head = NULL;
      TileListNode* temp = NULL;
-     int i, j;
+     int i, j, size;
 
      // Create map and test empty
      Map* m = createMap(3);
-     if (!getEmptyTiles(m)) return FAIL;
+     if (!getEmptyTiles(m, &size)) return FAIL;
+     if (size != 9) return FAIL;
 
-     head = getEmptyTiles(m);
+     head = getEmptyTiles(m, &size);
 
      // Check the x,y map data matches
      for (i = 0; i < 3; ++i)
@@ -255,7 +256,7 @@ Result testGetEmptyTiles()
      m->board[2][0] = Y;
      m->board[2][1] = X;
      m->board[2][2] = X;
-     if (getEmptyTiles(m)) return FAIL;
+     if (getEmptyTiles(m, &size)) return FAIL;
 
      // Clean up
      deleteMap(m);
