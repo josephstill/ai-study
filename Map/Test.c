@@ -348,6 +348,7 @@ Result testMapToString()
         "-------\n|%s| | |\n-------\n| |%s| |\n-------\n| | |%s|\n-------",
         "-------\n|%s| |%s|\n-------\n| |%s|%s|\n-------\n|%s| |%s|\n-------",
         "-------\n|%s|%s|%s|\n-------\n|%s|%s|%s|\n-------\n|%s|%s|%s|\n-------",
+        "-----------\n| | | | | |\n-----------\n| | | | | |\n-----------\n| | | | | |\n-----------\n| | | | | |\n-----------\n| | | | | |\n-----------"
     };
     char testBuffer[256];
     Map *m;
@@ -407,6 +408,10 @@ Result testMapToString()
     if (strcmp(tests[0], mapToString(m)) != 0) return FAIL;
 
     // Cleanup
+    deleteMap(m);
+    m = createMap(5);
+
+    if (strcmp(tests[4], mapToString(m)) != 0) return FAIL;
     deleteMap(m);
 
     return PASS;

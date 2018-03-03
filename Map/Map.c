@@ -276,40 +276,61 @@ int mapEquivalent(Map* a, Map* b)
 const char* mapToString(Map* m)
 {
     // Variables
-    char *mapBuffer = (char *) malloc(sizeof(char) * 256);
-    char *rowBuffer = (char *) malloc(sizeof(char) * 256);
-    int i, j;
+    int   mapSize, tmpSize, i, j;
+    char  *mapString, *buff;
 
-    // Loop through the board to get game piece data
+    // Calculate how much memory it takes for the string. Lets
+    // start with the header size. There are <size> headers with
+    // newlines and one without. The header is 2<size> + 1
+    mapSize = (2 * m->size) + 1; // Calculate the size of a line of ticks
+    mapSize *= (m->size + 1); // There are <size> + 1 headers
+    mapSize += m->size; // There are <size> new lines because <size> headers end with one.
+
+    // We can calculate the size of a line and then there are <size> number of them
+    tmpSize = (m->size * 2) + 2; // A space and a | per element with an extra | and newline
+    mapSize += (tmpSize * m->size); // There are <size> number of lines
+    mapSize++; // We null terminate strings
+
+    // Now lets make some memory
+    mapString = (char*) malloc(sizeof(char) * mapSize);
+    buff = (char*) malloc(sizeof(char) * 4);
+
+    // Did that work?
+    if (!mapString || !buff) return NULL;
+
+    // Now, we'll load the tmpSize with the size of out ticks.
+    tmpSize = (2 * m->size) + 1;
+
     for (i = 0; i < m->size; ++i)
     {
-        strcat(mapBuffer, "-------\n");
+        // Add ticks
+        for (j = 0; j < tmpSize; ++j)
+        {
+            strcat(mapString, "-");
+        }
+        strcat(mapString, "\n");
+
         for (j = 0; j < m->size; ++j)
         {
-            // Checks for valid game piece and handles the empty cell case
-            if (m->board[i][j] != NONE && m->board[i][j] != TIE)
+            if (m->board[i][j] == X || m->board[i][j] == Y)
             {
-                sprintf(rowBuffer, "|%s", stateToString(m->board[i][j]));
-                strcat(mapBuffer, rowBuffer);
+                sprintf(buff, "|%s", stateToString(m->board[i][j]));
+                strcat(mapString, buff);
             }
             else
             {
-                strcat(mapBuffer, "| ");
+                strcat(mapString, "| ");
             }
         }
-
-        // Close out the row line
-        strcat(mapBuffer, "|\n");
+        strcat(mapString, "|\n");
     }
 
-    // Last line of the board without newline character
-    strcat(mapBuffer, "-------");
+    for (j = 0; j < tmpSize; ++j)
+    {
+        strcat(mapString, "-");
+    }
 
-    // Free allocated memory of rowBuffer
-    /* !!! what about mapBuffer ??? */
-    free(rowBuffer);
-
-    return mapBuffer;
+    return mapString;
 }
 
 Map* deepCopy(Map* map)
