@@ -7,3 +7,7 @@ mapTest
 #####   Eclipse Project  #####
 .cproject
 .project
+
+
+#####   VS Code ##########
+.vscode
