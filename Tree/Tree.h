@@ -1,42 +1,27 @@
 #ifndef _TREE_H
 #define _TREE_H
 
-#include "../Map/Map.h"
+/**
+ * Types Required to build a tree
+ */
+typedef struct TreeNode TreeNode;
 
 /**
- * This struct defines an individual node in the winner tree
+ * This represents a tree node. The goal of this
+ * node is to be able to populate its child states
+ * then to be able to score itself. These functions 
+ * will be callbacks set by the user; so, no detail
+ * about their content will be provided here.
+ * 
+ * @param scoreNode   (function *)  - The callback to score the node
+ * @param numChildren (int)         - The number of child nodes
+ * @param children    (TreeNode **) - The list of child nodes
  */
-typedef struct WinnerTreeNode WinnerTreeNode;
-
-/**
- * This structure defines the node for the winner tree. Winner trees will be passed around as pointers
- * to the current root node. The root node does not necessarily have to be the empty map node, but the
- * node for the current state of the game.
- *
- * @param map: The map that represents the current state of the game.
- * @param children: A list of possible states to follow this one.
- * @param player: The player that is being considered for this tree.
- * @param wins: The number of winning paths from this state.
- * @param losses: The number of loss path from this state.
- * @param draws: The number of draw paths from this state.
- */
-struct WinnerTreeNode
-{
-    Map* map;
-    WinnerTreeNode* children;
-    TileState player;
-    int wins;
-    int losses;
-    int draw;
-};
-
-/**
- * Creates a winner tree with the given look ahead. NULL is returned if there is an issue.
- *
- * @param map: The map that is being used.
- * @param lookAhead: The number of moves to look ahead (Not currently in use).
- * @return: Returns a pointer to the tree or NULL if there is an issue.
- */
-WinnerTreeNode* createWinnerTree(Map* map, int lookAhead);
+typedef struct TreeNode {
+    void (*buildNode)(void *stateData);
+    int (*scoreNode)(void *stateData);
+    int numChildren; 
+    TreeNode **children;
+} TreeNode;
 
 #endif
